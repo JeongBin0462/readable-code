@@ -1,5 +1,6 @@
 package cleancode.minesweeper.asis;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -7,6 +8,7 @@ public class MinesweeperGame {
 
     public static final int BOARD_ROW_SIZE = 8;
     public static final int BOARD_COL_SIZE = 10;
+    private static final Scanner SCANNER = new Scanner(System.in);;
     private static final String[][] BOARD = new String[BOARD_ROW_SIZE][BOARD_COL_SIZE];
     private static final Integer[][] NEARBY_LAND_MINE_COUNTS = new Integer[BOARD_ROW_SIZE][BOARD_COL_SIZE];
     public static final int LAND_MINE_COUNT = 10;
@@ -20,7 +22,6 @@ public class MinesweeperGame {
 
     public static void main(String[] args) {
         showGameStartComments();
-        Scanner scanner = new Scanner(System.in);
         initializeGame();
 
         while (true) {
@@ -36,8 +37,8 @@ public class MinesweeperGame {
                 break;
             }
 
-            String cellInput = getCellInputFromUser(scanner);
-            String userActionInput = getCellActionInputFromUser(scanner);
+            String cellInput = getCellInputFromUser();
+            String userActionInput = getCellActionInputFromUser();
             actOnCell(cellInput, userActionInput);
         }
     }
@@ -96,14 +97,14 @@ public class MinesweeperGame {
         return convertColFrom(cellInputCol);
     }
 
-    private static String getCellActionInputFromUser(Scanner scanner) {
+    private static String getCellActionInputFromUser() {
         System.out.println("선택한 셀에 대한 행위를 선택하세요. (1: 오픈, 2: 깃발 꽂기)");
-        return scanner.nextLine();
+        return SCANNER.nextLine();
     }
 
-    private static String getCellInputFromUser(Scanner scanner) {
+    private static String getCellInputFromUser() {
         System.out.println("선택할 좌표를 입력하세요. (예: a1)");
-        return scanner.nextLine();
+        return SCANNER.nextLine();
     }
 
     private static boolean doesUserLoseTheGame() {
@@ -127,16 +128,9 @@ public class MinesweeperGame {
     }
 
     private static boolean isAllCellOpened() {
-        boolean isAllOpened = true;
-
-        for (int row = 0; row < BOARD_ROW_SIZE; row++) {
-            for (int col = 0; col < BOARD_COL_SIZE; col++) {
-                if (BOARD[row][col].equals(CLOSED_CELL_SIGN)) {
-                    isAllOpened = false;
-                }
-            }
-        }
-        return isAllOpened;
+        return Arrays.stream(BOARD)
+                .flatMap(Arrays::stream)
+                .noneMatch(cell -> cell.equals(CLOSED_CELL_SIGN));
     }
 
     private static int convertRowFrom(char cellInputRow) {
