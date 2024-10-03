@@ -1,16 +1,21 @@
 package cleancode.minesweeper.tobe;
 
+import cleancode.minesweeper.tobe.gamelevel.GameLevel;
+
 import java.util.Arrays;
 import java.util.Random;
 
 public class GameBoard {
 
-    private static final int LAND_MINE_COUNT = 10;
-
     private final Cell[][] board;
+    private final int landMineCount;
 
-    public GameBoard(int rowSize, int colSize) {
+    public GameBoard(GameLevel gameLevel) {
+        int colSize = gameLevel.getColSize();
+        int rowSize = gameLevel.getRowSize();
         board = new Cell[rowSize][colSize];
+
+        landMineCount = gameLevel.getLandMineCount();
     }
 
     public void flag(int selectedRowIndex, int selectedColIndex) {
@@ -46,7 +51,7 @@ public class GameBoard {
         }
 
         // 지뢰 세팅
-        for (int i = 0; i < LAND_MINE_COUNT; i++) {
+        for (int i = 0; i < landMineCount; i++) {
             int col = new Random().nextInt(colSize);
             int row = new Random().nextInt(rowSize);
             findCell(row, col).turnOnLandMine();
