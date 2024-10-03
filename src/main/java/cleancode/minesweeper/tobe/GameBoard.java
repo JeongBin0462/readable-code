@@ -1,5 +1,9 @@
 package cleancode.minesweeper.tobe;
 
+import cleancode.minesweeper.tobe.cell.Cell;
+import cleancode.minesweeper.tobe.cell.EmptyCell;
+import cleancode.minesweeper.tobe.cell.LandMineCell;
+import cleancode.minesweeper.tobe.cell.NumberCell;
 import cleancode.minesweeper.tobe.gamelevel.GameLevel;
 
 import java.util.Arrays;
@@ -46,15 +50,17 @@ public class GameBoard {
         // board 세팅
         for (int row = 0; row < rowSize; row++) {
             for (int col = 0; col < colSize; col++) {
-                board[row][col] = Cell.create();
+                board[row][col] = new EmptyCell();
             }
         }
 
         // 지뢰 세팅
         for (int i = 0; i < landMineCount; i++) {
-            int col = new Random().nextInt(colSize);
-            int row = new Random().nextInt(rowSize);
-            findCell(row, col).turnOnLandMine();
+            int landMineCol = new Random().nextInt(colSize);
+            int landMineRow = new Random().nextInt(rowSize);
+
+            LandMineCell landMineCell = new LandMineCell();
+            board[landMineRow][landMineCol] = landMineCell;
         }
 
         // 칸 선택 시 지뢰 count 세팅
@@ -66,8 +72,11 @@ public class GameBoard {
                     continue;
                 }
                 int count = countNearbyLandMines(row, col);
-                Cell cell = findCell(row, col);
-                cell.updatedNearbyLandMineCount(count);
+                if (count == 0) {
+                    continue;
+                }
+                NumberCell numberCell = new NumberCell(count);
+                board[row][col] = numberCell;
             }
         }
     }
