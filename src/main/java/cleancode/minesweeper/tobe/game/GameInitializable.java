@@ -1,6 +1,6 @@
 package cleancode.minesweeper.tobe.game;
 
-public interface GameInitialize {
+public interface GameInitializable {
 
     void initialize();
 }

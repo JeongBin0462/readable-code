@@ -1,7 +1,7 @@
 package cleancode.minesweeper.tobe.io;
 
-import cleancode.minesweeper.tobe.AppException;
 import cleancode.minesweeper.tobe.GameBoard;
+import cleancode.minesweeper.tobe.GameException;
 
 public interface OutputHandler {
 
@@ -9,15 +9,16 @@ public interface OutputHandler {
 
     void showBoard(GameBoard board);
 
-    void showGameClearMessage();
+    void showGameWinningComment();
 
-    void showGameOverMessage();
+    void showGameLosingComment();
 
-    void showCommentToGetCellInput();
+    void showCommentForSelectingCell();
 
     void showCommentForUserAction();
 
-    void showExceptionMessage(AppException e);
+    void showExceptionMessage(GameException e);
 
-    void showExceptionMessage(Exception e);
+    void showSimpleMessage(String message);
+
 }
