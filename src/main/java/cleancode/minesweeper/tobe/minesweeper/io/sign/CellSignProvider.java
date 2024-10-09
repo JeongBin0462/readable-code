@@ -1,4 +1,4 @@
-package cleancode.minesweeper.tobe.minesweeper.board.sign;
+package cleancode.minesweeper.tobe.minesweeper.io.sign;
 
 import cleancode.minesweeper.tobe.minesweeper.board.cell.CellSnapshot;
 import cleancode.minesweeper.tobe.minesweeper.board.cell.CellSnapshotStatus;

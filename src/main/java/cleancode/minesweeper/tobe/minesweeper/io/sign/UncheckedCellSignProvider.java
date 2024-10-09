@@ -1,19 +1,19 @@
-package cleancode.minesweeper.tobe.minesweeper.board.sign;
+package cleancode.minesweeper.tobe.minesweeper.io.sign;
 
 import cleancode.minesweeper.tobe.minesweeper.board.cell.CellSnapshot;
 import cleancode.minesweeper.tobe.minesweeper.board.cell.CellSnapshotStatus;
 
-public class FlagCellSignProvider implements CellSignProvidable {
+public class UncheckedCellSignProvider implements CellSignProvidable {
 
-    private static final String FLAG_SIGN = "⚑";
+    private static final String UNCHECKED_SIGN = "□";
 
     @Override
     public boolean supports(CellSnapshot cellSnapshot) {
-        return cellSnapshot.isSameStatus(CellSnapshotStatus.FLAG);
+        return cellSnapshot.isSameStatus(CellSnapshotStatus.UNCHECKED);
     }
 
     @Override
     public String provide(CellSnapshot cellSnapshot) {
-        return FLAG_SIGN;
+        return UNCHECKED_SIGN;
     }
 }
