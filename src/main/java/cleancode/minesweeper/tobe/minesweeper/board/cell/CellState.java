@@ -29,8 +29,4 @@ public class CellState {
     public boolean isFlagged() {
         return isFlagged;
     }
-
-    public boolean isChecked() {
-        return isFlagged || isOpened;
-    }
 }
