@@ -1,4 +1,4 @@
-package cleancode.studycafe.tobe.model;
+package cleancode.studycafe.tobe.passmachine.model;
 
 public class StudyCafePass {
 
@@ -16,6 +16,16 @@ public class StudyCafePass {
 
     public static StudyCafePass of(StudyCafePassType passType, int duration, int price, double discountRate) {
         return new StudyCafePass(passType, duration, price, discountRate);
+    }
+
+    public static StudyCafePass byFileLine(String line) {
+        String[] values = line.split(",");
+        StudyCafePassType studyCafePassType = StudyCafePassType.valueOf(values[0]);
+        int duration = Integer.parseInt(values[1]);
+        int price = Integer.parseInt(values[2]);
+        double discountRate = Double.parseDouble(values[3]);
+
+        return new StudyCafePass(studyCafePassType, duration, price, discountRate);
     }
 
     public StudyCafePassType getPassType() {
